@@ -1,0 +1,7 @@
+.my_brand{
+    margin-right: 30px;
+    width: 50px;
+    height:  50px;
+    background-image: url("/static/img/penny.png");
+    background-size: cover;
+}

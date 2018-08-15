@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.produceDao.ProduceDao">
+    <resultMap id="produceResultMap" type="com.org.design.domain.produce.Produce">
+        <id property="produce_id" column="produce_id"/>
+        <result property="produce_item" column="produce_item"/>
+        <result property="produce_company" column="produce_company"/>
+        <result property="online_date" column="online_date"/>
+        <result property="produce_state" column="produce_state"/>
+        <result property="produce_suit" column="produce_suit"/>
+    </resultMap>
+
+    <!--根据用户状态查询合适产品信息-->
+    <select id="selectProduceByProduceSuit" parameterType="string" resultMap="produceResultMap">
+        SELECT * FROM produce WHERE produce_suit = #{produce_suit}
+    </select>
+
+    <!--按照日期查询产品-->
+    <select id="selectProduceByDate" parameterType="Produce" resultMap="produceResultMap">
+        SELECT * FROM produce WHERE online_date = #{online_date}
+    </select>
+
+    <!--按照公司查询产品-->
+    <select id="selectProduceByCompany" parameterType="Produce" resultMap="produceResultMap">
+        SELECT * FROM produce WHERE produce_company = #{produce_company}
+    </select>
+
+    <!--查找所有产品-->
+    <select id="selectAllProduce" resultMap="produceResultMap">
+        SELECT  * FROM produce
+    </select>
+
+    <!--插入公司产品信息-->
+    <insert id="insertCompanyProduce" parameterType="Produce">
+        INSERT INTO produce
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="produce_id != null">
+                produce_id,
+            </if>
+            <if test="produce_item != null">
+                produce_item,
+            </if>
+            <if test="produce_company != null">
+                produce_company,
+            </if>
+            <if test="online_date != null">
+                online_date,
+            </if>
+            <if test="produce_state != null">
+                produce_state,
+            </if>
+            <if test="produce_suit != null">
+                produce_suit
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="produce_id != null and produce_id != '' ">
+                #{produce_id, jdbcType=NUMERIC},
+            </if>
+            <if test="produce_item != null and produce_item != '' ">
+                #{produce_item, jdbcType=VARCHAR},
+            </if>
+            <if test="produce_company != null and produce_company != '' ">
+                #{produce_company, jdbcType=VARCHAR},
+            </if>
+            <if test="online_date != null and online_date != '' ">
+                #{online_date, jdbcType=DATE},
+            </if>
+            <if test="produce_state != null and produce_state != '' ">
+                #{produce_state, jdbcType=VARCHAR},
+            </if>
+            <if test="produce_suit != null and produce_suit != '' ">
+                #{produce_suit, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改产品信息-->
+    <update id="updateProduceById" parameterType="Produce">
+        UPDATE produce
+        <set>
+            <if test="produce_item != null and produce_item != '' ">
+                produce_item = #{produce_item, jdbcType=VARCHAR},
+            </if>
+            <if test="produce_company != null and produce_company != '' ">
+                produce_company = #{produce_company, jdbcType=VARCHAR},
+            </if>
+            <if test="online_date != null and online_date != '' ">
+                online_date = #{online_date, jdbcType=DATE},
+            </if>
+            <if test="produce_state != null and produce_state != '' ">
+                produce_state = #{produce_state, jdbcType=VARCHAR},
+            </if>
+            <if test="produce_suit != null and produce_suit != '' ">
+                produce_suit = #{produce_suit, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE produce_id = #{produce_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据产品名id产品-->
+    <delete id="deleteProduceById" parameterType="Produce">
+        DELETE  FROM produce
+        WHERE produce_id = #{produce_id, jdbcType=VARCHAR}
+    </delete>
+</mapper>

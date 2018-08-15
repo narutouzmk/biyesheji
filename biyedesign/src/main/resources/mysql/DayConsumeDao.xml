@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.dayDao.DayConsumeDao">
+    <resultMap id="DayConsumeResultMap" type="com.org.design.domain.day.DayConsumeItem">
+        <id property="consume_id" column="consume_id" />
+        <result property="consume_item" column="consume_item"/>
+        <result property="consume_count" column="consume_count"/>
+        <result property="consume_date" column="consume_date"/>
+        <result property="login_name" column="login_name"/>
+    </resultMap>
+
+    <!--根据id查找日消费情况-->
+    <select id="selectDayConsumeById" parameterType="DayConsumeItem" resultMap="DayConsumeResultMap">
+        SELECT * FROM day_consume WHERE consume_id = #{consume_id}
+    </select>
+
+    <!--根据用户名查找日消费情况-->
+    <select id="selectDayConsumeByLoginName" parameterType="DayConsumeItem" resultMap="DayConsumeResultMap">
+        SELECT  * FROM  day_consume WHERE login_name = #{login_name}
+    </select>
+
+    <!--根据日期查找日消费情况-->
+    <select id="selectDayConsumeByDate" parameterType="DayConsumeItem" resultMap="DayConsumeResultMap">
+        SELECT  * FROM  day_consume WHERE consume_date = #{consume_date} AND login_name = #{login_name}
+    </select>
+
+    <!--根据用户名插入记录-->
+    <insert id="insertDayConsumeByLoginName" parameterType="DayConsumeItem" useGeneratedKeys="true" keyProperty="consume_id">
+        INSERT INTO day_consume
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="consume_id != null">
+                consume_id,
+            </if>
+            <if test="consume_item != null">
+                consume_item,
+            </if>
+            <if test="consume_count != null">
+                consume_count,
+            </if>
+            <if test="consume_date != null">
+                consume_date,
+            </if>
+            <if test="login_name != null">
+                login_name
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="consume_id != null">
+                #{consume_id, jdbcType=NUMERIC},
+            </if>
+            <if test="consume_item != null">
+                #{consume_item, jdbcType=VARCHAR},
+            </if>
+            <if test="consume_count != null">
+                #{consume_count, jdbcType=NUMERIC},
+            </if>
+            <if test="consume_date">
+                #{consume_date, jdbcType=DATE},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id更新记录-->
+    <update id="updateDayConsumeById" parameterType="DayConsumeItem">
+        UPDATE day_consume
+        <set>
+            <if test="consume_item != null">
+                consume_item = #{consume_item, jdbcType=VARCHAR},
+            </if>
+            <if test="consume_count != null">
+                consume_count = #{consume_count, jdbcType=NUMERIC},
+            </if>
+            <if test="consume_date != null">
+                consume_date = #{consume_date, jdbcType=DATE},
+            </if>
+        </set>
+        WHERE consume_id = #{consume_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据id删除记录-->
+    <delete id="deleteDayConsumeById" parameterType="DayConsumeItem">
+        DELETE FROM day_consume WHERE consume_id = #{consume_id}
+    </delete>
+</mapper>

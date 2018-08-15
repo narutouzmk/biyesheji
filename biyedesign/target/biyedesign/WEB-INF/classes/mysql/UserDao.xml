@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.userDao.UserDao">
+    <resultMap id="userResultMap" type="com.org.design.domain.user.User">
+        <id property="user_id" column="user_id" />
+        <result property="login_name" column="login_name"/>
+        <result property="password" column="password"/>
+        <result property="e_mail" column="e_mail"/>
+        <result property="phone_number" column="phone_number"/>
+        <result property="role" column="role" />
+        <result property="head_img" column="head_img"/>
+    </resultMap>
+
+    <!--查找所有用户-->
+    <select id="selectAllUser" resultMap="userResultMap">
+        SELECT * FROM my_client
+    </select>
+
+    <!--根据id查找用户-->
+    <select id="selectUserById" parameterType="User" resultMap="userResultMap">
+        SELECT  * FROM  my_client WHERE  user_id=#{user_id}
+    </select>
+
+    <!--根据用户名查找用户-->
+    <select id="selectUserByName" parameterType="User" resultMap="userResultMap">
+        SELECT  * FROM  my_client WHERE login_name = #{login_name}
+    </select>
+
+    <!--找回密码时根据邮箱和手机号找回-->
+    <select id="selectUserByLoginNameAndPhoneNumberAndEmail" parameterType="User" resultMap="userResultMap">
+        SELECT * FROM my_client WHERE login_name = #{login_name} AND e_mail = #{e_mail} AND phone_number = #{phone_number}
+    </select>
+
+    <!--查询管理员和普通用户-->
+    <select id="selectManagerOrUser" parameterType="User" resultMap="userResultMap">
+        SELECT  * FROM my_client WHERE role = #{role}
+    </select>
+
+    <!--注册用户-->
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO my_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="user_id != null">
+                user_id,
+            </if>
+            <if test="login_name != null">
+                login_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="e_mail != null">
+                e_mail,
+            </if>
+            <if test="phone_number != null">
+                phone_number,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="head_img != null">
+                head_img
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="user_id != null">
+                #{user_id, jdbcType=NUMERIC},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="e_mail != null">
+                #{e_mail, jdbcType=VARCHAR},
+            </if>
+            <if test="phone_number != null">
+                #{phone_number, jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role, jdbcType=VARCHAR},
+            </if>
+            <if test="head_img != null">
+                #{head_img, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改用户信息-->
+    <update id="updateUserById" parameterType="User">
+        UPDATE my_client
+        <set>
+            <if test="login_name != null and login_name != '' ">
+                login_name = #{login_name, jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="e_mail != null and e_mail != '' ">
+                e_mail = #{e_mail, jdbcType=VARCHAR},
+            </if>
+            <if test="phone_number != null and phone_number != '' ">
+                phone_number = #{phone_number, jdbcType=VARCHAR},
+            </if>
+            <if test="role != null and role != '' ">
+                role = #{role, jdbcType=VARCHAR},
+            </if>
+            <if test="head_img != null and head_img != '' ">
+                head_img = #{head_img, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE user_id = #{user_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--删除用户-->
+    <delete id="deleteUserById" parameterType="User">
+        DELETE FROM my_client
+        WHERE user_id = #{user_id, jdbcType=NUMERIC}
+    </delete>
+</mapper>

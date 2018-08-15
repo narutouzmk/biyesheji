@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.worldBankDao.WorldBankDao">
+    <resultMap id="worldBankMap" type="com.org.design.domain.worldBank.WorldBank">
+        <id property="bank_id" column="bank_id" />
+        <result property="gov_cur" column="gov_cur"/>
+        <result property="gov_bal" column="gov_bal"/>
+        <result property="cbank_cur" column="cbank_cur"/>
+        <result property="cbank_bal" column="cbank_bal"/>
+        <result property="fbond_cur" column="fbond_cur" />
+        <result property="fbond_bal" column="fbond_bal"/>
+        <result property="ccre_cur" column="ccre_cur"/>
+        <result property="ccre_bal" column="ccre_bal"/>
+        <result property="ino_cur" column="ino_cur"/>
+        <result property="ino_bal" column="ino_bal"/>
+        <result property="oth_cur" column="oth_cur"/>
+        <result property="oth_bal" column="oth_bal"/>
+        <result property="cur_date" column="cur_date"/>
+    </resultMap>
+
+    <!--查找所有信息-->
+    <select id="selectAllWorldBank" resultMap="worldBankMap">
+        SELECT * FROM world_bank
+    </select>
+
+    <!--根据id查找记录-->
+    <select id="selectWorldBankById" parameterType="WorldBank" resultMap="worldBankMap">
+        SELECT  * FROM  world_bank WHERE  bank_id=#{bank_id}
+    </select>
+
+    <!--插入记录-->
+    <insert id="insertWorldBank" parameterType="WorldBank" useGeneratedKeys="true" keyProperty="bank_id">
+        INSERT INTO world_bank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bank_id != null">
+                bank_id,
+            </if>
+            <if test="gov_cur != null">
+                gov_cur,
+            </if>
+            <if test="gov_bal != null">
+                gov_bal,
+            </if>
+            <if test="cbank_cur != null">
+                cbank_cur,
+            </if>
+            <if test="cbank_bal != null">
+                cbank_bal,
+            </if>
+            <if test="fbond_cur != null">
+                fbond_cur,
+            </if>
+            <if test="fbond_bal != null">
+                fbond_bal,
+            </if>
+            <if test="ccre_cur != null">
+                ccre_cur,
+            </if>
+            <if test="ccre_bal != null">
+                ccre_bal,
+            </if>
+            <if test="ino_cur != null">
+                ino_cur,
+            </if>
+            <if test="ino_bal != null">
+                ino_bal,
+            </if>
+            <if test="oth_cur != null">
+                oth_cur,
+            </if>
+            <if test="oth_bal != null">
+                oth_bal,
+            </if>
+            <if test="cur_date != null">
+                cur_date,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="bank_id != null">
+                #{bank_id, jdbcType=NUMERIC},
+            </if>
+            <if test="gov_cur != null">
+                #{gov_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="gov_bal != null">
+                #{gov_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="cbank_cur != null">
+                #{cbank_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="cbank_bal != null">
+                #{cbank_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="fbond_cur != null">
+                #{fbond_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="fbond_bal != null">
+                #{fbond_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="ccre_cur != null">
+                #{ccre_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="ccre_bal != null">
+                #{ccre_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="ino_cur != null">
+                #{ino_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="ino_bal != null">
+                #{ino_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="oth_cur != null">
+                #{oth_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="oth_bal != null">
+                #{oth_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="cur_date != null">
+                #{cur_date, jdbcType=DATE}
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改信息-->
+    <update id="updateWorldBankById" parameterType="WorldBank">
+        UPDATE world_bank
+        <set>
+            <if test="gov_cur != null and gov_cur != '' ">
+                gov_cur = #{gov_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="gov_bal != null and gov_bal != '' ">
+                gov_bal = #{gov_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="cbank_cur != null and cbank_cur != '' ">
+                cbank_cur = #{cbank_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="cbank_bal != null and cbank_bal != '' ">
+                cbank_bal = #{cbank_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="fbond_cur != null and fbond_cur != '' ">
+                fbond_cur = #{fbond_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="fbond_bal != null and fbond_bal != '' ">
+                fbond_bal = #{fbond_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="ccre_cur != null and ccre_cur != '' ">
+                ccre_cur = #{ccre_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="ccre_bal != null and ccre_bal != '' ">
+                ccre_bal = #{ccre_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="ino_cur != null and ino_cur != '' ">
+                ino_cur = #{ino_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="ino_bal != null and ino_bal != '' ">
+                ino_bal = #{ino_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="oth_cur != null and oth_cur != '' ">
+                oth_cur = #{oth_cur, jdbcType=NUMERIC},
+            </if>
+            <if test="oth_bal != null and oth_bal != '' ">
+                oth_bal = #{oth_bal, jdbcType=NUMERIC},
+            </if>
+            <if test="cur_date != null and cur_date != '' ">
+                cur_date = #{cur_date, jdbcType=DATE}
+            </if>
+        </set>
+        WHERE bank_id = #{bank_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据id删除记录-->
+    <delete id="deleteWorldBankById" parameterType="WorldBank">
+        DELETE FROM world_bank WHERE bank_id=#{bank_id, jdbcType=NUMERIC}
+    </delete>
+</mapper>

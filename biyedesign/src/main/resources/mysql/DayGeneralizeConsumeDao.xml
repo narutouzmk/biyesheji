@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.dayDao.DayGeneralizeConsumeDao">
+    <resultMap id="dayConsumerGMap" type="com.org.design.domain.day.DayGeneralizeConsume">
+        <id property="bigItem_id" column="bigItem_id" />
+        <result property="life_consume" column="life_consume"/>
+        <result property="learn_consume" column="learn_consume"/>
+        <result property="entertainment_consume" column="entertainment_consume"/>
+        <result property="invest_consume" column="invest_consume"/>
+        <result property="other_consume" column="other_consume" />
+        <result property="day_date" column="day_date"/>
+        <result property="login_name" column="login_name"/>
+    </resultMap>
+
+    <!--根据用户名查看当前消费情况-->
+    <select id="selectDayGeneralizeConsumeDaoByLoginName" parameterType="DayGeneralizeConsume" resultMap="dayConsumerGMap">
+        SELECT * FROM day_bigitem WHERE login_name = #{login_name}
+    </select>
+
+    <!--根据日期查看当前消费情况-->
+    <select id="selectDayGeneralizeConsumeDaoByDate" parameterType="DayGeneralizeConsume" resultMap="dayConsumerGMap">
+        SELECT * FROM day_bigitem WHERE login_name = #{login_name} AND day_date = #{day_date}
+    </select>
+
+    <!--根据用户名插入当天记录-->
+    <insert id="insertDayGeneralizeConsumeDaoByLoginName" parameterType="DayGeneralizeConsume" useGeneratedKeys="true" keyProperty="bigItem_id">
+        INSERT INTO day_bigitem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bigItem_id != null">
+                bigItem_id,
+            </if>
+            <if test="life_consume != null">
+                life_consume,
+            </if>
+            <if test="learn_consume != null">
+                learn_consume,
+            </if>
+            <if test="entertainment_consume != null">
+                entertainment_consume,
+            </if>
+            <if test="invest_consume != null">
+                invest_consume,
+            </if>
+            <if test="other_consume != null">
+                other_consume,
+            </if>
+            <if test="day_date != null">
+                day_date,
+            </if>
+            <if test="login_name != null">
+                login_name
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="bigItem_id != null">
+                #{bigItem_id, jdbcType=INT},
+            </if>
+            <if test="life_consume != null">
+                #{life_consume, jdbcType=VARCHAR},
+            </if>
+            <if test="learn_consume != null">
+                #{learn_consume, jdbcType=VARCHAR},
+            </if>
+            <if test="entertainment_consume != null">
+                #{entertainment_consume, jdbcType=VARCHAR},
+            </if>
+            <if test="invest_consume != null">
+                #{invest_consume, jdbcType=VARCHAR},
+            </if>
+            <if test="other_consume != null">
+                #{other_consume, jdbcType=VARCHAR},
+            </if>
+            <if test="day_date != null">
+                #{day_date, jdbcType=DATE},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据ID修改当前记录-->
+    <update id="updateUserById" parameterType="DayGeneralizeConsume">
+        UPDATE day_bigitem
+        <set>
+            <if test="life_consume != null">
+                life_consume = #{life_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="learn_consume != null">
+                learn_consume = #{learn_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="entertainment_consume != null">
+                entertainment_consume = #{entertainment_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="invest_consume != null">
+                invest_consume = #{invest_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="other_consume != null">
+                other_consume = #{other_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="day_date != null">
+                day_date = #{day_date, jdbcType=DATE},
+            </if>
+        </set>
+        WHERE bigItem_id = #{bigItem_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据ID删除当天记录-->
+    <delete id="deleteDayGeneralizeConsumeDaoById" parameterType="DayGeneralizeConsume">
+        DELETE FROM day_bigitem WHERE bigItem_id = #{bigItem_id}
+    </delete>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.userDao.UserInfoDao">
+    <resultMap id="userInfoResultMap" type="com.org.design.domain.user.UserInfo">
+        <id property="info_id" column="info_id" />
+        <result property="occupation" column="occupation"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="wage" column="wage"/>
+        <result property="allCapital" column="allCapital" />
+        <result property="month_consume" column="month_consume"/>
+        <result property="login_name" column="login_name"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <!--用于用户查询个人信息-->
+    <select id="selectUserInfoByLoginName" parameterType="UserInfo" resultMap="userInfoResultMap">
+        SELECT * FROM user_info WHERE login_name = #{login_name}
+    </select>
+
+    <!--用于用户注册提交个人详细信息-->
+    <insert id="insertUserInfoByLoginName" parameterType="UserInfo">
+        INSERT INTO user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="info_id != null">
+                info_id,
+            </if>
+            <if test="occupation != null">
+                occupation,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="wage != null">
+                wage,
+            </if>
+            <if test="allCapital != null">
+                allCapital,
+            </if>
+            <if test="month_consume != null">
+                month_consume,
+            </if>
+            <if test="login_name != null">
+                login_name,
+            </if>
+            <if test="description != null">
+                description
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="info_id != null">
+                #{info_id, jdbcType=NUMERIC},
+            </if>
+            <if test="occupation != null">
+                #{occupation, jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age, jdbcType=NUMERIC},
+            </if>
+            <if test="sex != null">
+                #{sex, jdbcType=NUMERIC},
+            </if>
+            <if test="wage != null">
+                #{wage, jdbcType=NUMERIC},
+            </if>
+            <if test="allCapital != null">
+                #{allCapital, jdbcType=NUMERIC},
+            </if>
+            <if test="month_consume != null">
+                #{month_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--修改用户信息-->
+    <update id="updateUserByLoginName" parameterType="UserInfo">
+        UPDATE user_info
+        <set>
+            <if test="occupation != null and occupation != ''">
+                occupation = #{occupation, jdbcType=VARCHAR},
+            </if>
+            <if test="age != null and age != ''">
+                age = #{age, jdbcType=NUMERIC},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex, jdbcType=VARCHAR},
+            </if>
+            <if test="wage != null and wage != ''">
+                wage = #{wage, jdbcType=NUMERIC},
+            </if>
+            <if test="allCapital != null and allCapital != ''">
+                allCapital = #{allCapital, jdbcType=NUMERIC},
+            </if>
+            <if test="month_consume != null and month_consume != ''">
+                month_consume = #{month_consume, jdbcType=NUMERIC},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description, jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE login_name = #{login_name, jdbcType=VARCHAR}
+    </update>
+
+    <!--删除用户时使用-->
+    <delete id="deleteUserInfoByLoginName" parameterType="UserInfo">
+        DELETE  FROM USER_INFO
+        WHERE login_name = #{login_name}
+    </delete>
+</mapper>

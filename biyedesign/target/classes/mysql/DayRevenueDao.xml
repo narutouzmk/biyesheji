@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.dayDao.DayRevenueDao">
+    <resultMap id="DayRevenueResultMap" type="com.org.design.domain.day.DayRevenueItem">
+        <id property="earn_id" column="earn_id" />
+        <result property="earn_item" column="earn_item"/>
+        <result property="earn_count" column="earn_count"/>
+        <result property="earn_date" column="earn_date"/>
+        <result property="login_name" column="login_name"/>
+    </resultMap>
+
+    <!--根据id查找日消费情况-->
+    <select id="selectDayRevenueId" parameterType="DayRevenueItem" resultMap="DayRevenueResultMap">
+        SELECT  * FROM  day_revenue WHERE earn_id = #{earn_id}
+    </select>
+
+    <!--根据用户名查找日消费情况-->
+    <select id="selectDayRevenueByLoginName" parameterType="DayRevenueItem" resultMap="DayRevenueResultMap">
+        SELECT  * FROM  day_revenue WHERE login_name = #{login_name}
+    </select>
+
+    <!--根据日期查找日消费情况-->
+    <select id="selectDayRevenueByDate" parameterType="DayRevenueItem" resultMap="DayRevenueResultMap">
+        SELECT  * FROM  day_revenue WHERE earn_date = #{earn_date} AND login_name = #{login_name}
+    </select>
+
+    <!--根据用户名插入记录-->
+    <insert id="insertDayRevenueByLoginName" parameterType="DayRevenueItem" useGeneratedKeys="true" keyProperty="earn_id">
+        INSERT INTO day_revenue
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="earn_id != null">
+                earn_id,
+            </if>
+            <if test="earn_item != null">
+                earn_item,
+            </if>
+            <if test="earn_count != null">
+                earn_count,
+            </if>
+            <if test="earn_date != null">
+                earn_date,
+            </if>
+            <if test="login_name != null">
+                login_name
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="earn_id != null">
+                #{earn_id, jdbcType=NUMERIC},
+            </if>
+            <if test="earn_item != null">
+                #{earn_item, jdbcType=VARCHAR},
+            </if>
+            <if test="earn_count != null">
+                #{earn_count, jdbcType=NUMERIC},
+            </if>
+            <if test="earn_date">
+                #{earn_date, jdbcType=DATE},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id更新记录-->
+    <update id="updateDayRevenueById" parameterType="DayRevenueItem">
+        UPDATE day_revenue
+        <set>
+            <if test="earn_item != null">
+                earn_item = #{earn_item, jdbcType=VARCHAR},
+            </if>
+            <if test="earn_count != null">
+                earn_count = #{earn_count, jdbcType=NUMERIC},
+            </if>
+            <if test="earn_date">
+                earn_date = #{earn_date, jdbcType=DATE},
+            </if>
+        </set>
+        WHERE earn_id = #{earn_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据id删除记录-->
+    <delete id="deleteDayRevenueById" parameterType="DayRevenueItem">
+        DELETE FROM day_revenue WHERE earn_id = #{earn_id}
+    </delete>
+</mapper>

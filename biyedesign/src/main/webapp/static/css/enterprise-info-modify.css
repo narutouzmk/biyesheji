@@ -1,0 +1,45 @@
+body{
+	font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4d575d;
+    background-color: #f5f5f5;
+}
+
+.my-manager-container-head {
+	background-color: #4285f4;
+	color: #FFFFFF;
+	font-family: "微软雅黑";
+	line-height: 100%;
+}
+
+.my-manager-container-head h3{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.my-manager-container-0{
+	margin: 0px;
+	padding-left: 0px;
+}
+
+.my-manager-container-0 .my-side-left{
+	padding-left: 0px;
+}
+
+.my-world-bank thead th,td{
+	text-align: center;
+}
+
+.my-form-inline {
+	margin-top: 16px;
+}
+
+.my-full-btn{
+	width: 100%;
+	border: none;
+}
+
+a:link, a:visited, a:hover{
+	text-decoration: none;
+}

@@ -1,0 +1,95 @@
+body{
+	margin: 0;
+    padding: 0;
+    background-color: #696969;
+    color: #24292e;
+	font-family: "微软雅黑";
+    background-attachment:fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+}
+
+.head{
+	width: 100%;
+}
+
+
+.row{
+	margin-bottom: 20px;
+}
+
+.row .row{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.login-form{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: #eee;
+	background-color: rgba(255,255,255,.5);
+	border: 1px solid #DDD;
+	border: 1px solid rgba(86,61,124,.5);
+}
+
+.my-full-btn{
+	width: 100%;
+	border: none;
+}
+
+/*文本连接去下划线*/
+.my-rem-line:link, .my-rem-line:visited, .my-rem-line:hover{
+	text-decoration: none;
+}
+
+.my-rem-line{
+	font-family: "微软雅黑";
+    color: white;
+    margin-right: 60px;
+}
+
+.login-links{
+	text-align: center;
+    color: #cecece;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.login-links a{
+	margin: 0, 0.5px;
+}
+
+.my-container-1 {
+	margin-top: 80px;
+}
+
+.form-head{
+	width: 100%;
+	padding: 10px 30px;
+	font-size: 30px;
+	text-align: center;
+	color:#0F0F0F;
+}
+
+.login-links span{
+	margin-right: 10px;
+}
+
+
+.my-tip2{
+	display: none;
+}
+
+.my-tip {
+	color: red;
+	font-family: "微软雅黑";
+	font-size: 16px;
+}
+
+.my_brand{
+	margin-right: 30px;
+	width: 50px;
+	height:  50px;
+	background-image: url("/static/img/penny.png");
+	background-size: cover;
+}

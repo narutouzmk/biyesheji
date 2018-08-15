@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.org.design.dao.capitalDao.CapitalInDao">
+    <resultMap id="CapitalInResultMap" type="com.org.design.domain.capital.CapitalIn">
+        <id property="capitali_id" column="capitali_id" />
+        <result property="capitali_item" column="capitali_item"/>
+        <result property="capitali_count" column="capitali_count"/>
+        <result property="capitali_date" column="capitali_date"/>
+        <result property="login_name" column="login_name"/>
+    </resultMap>
+
+    <!--根据id查找资产收入情况-->
+    <select id="selectCapitalInById" parameterType="CapitalIn" resultMap="CapitalInResultMap">
+        SELECT  * FROM  capital_in WHERE capitali_id = #{capitali_id}
+    </select>
+
+    <!--根据用户名查找资产收入情况-->
+    <select id="selectCapitalInByLoginName" parameterType="CapitalIn" resultMap="CapitalInResultMap">
+        SELECT  * FROM  capital_in WHERE login_name = #{login_name}
+    </select>
+
+    <!--根据日期查找日消费情况-->
+    <select id="selectCapitalInByDate" parameterType="CapitalIn" resultMap="CapitalInResultMap">
+        SELECT  * FROM  capital_in WHERE capitali_date = #{capitali_date} AND login_name = #{login_name}
+    </select>
+
+    <!--根据用户名插入记录-->
+    <insert id="insertCapitalInByLoginName" parameterType="CapitalIn" useGeneratedKeys="true" keyProperty="capitali_id">
+        INSERT INTO capital_in
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="capitali_id != null">
+                capitali_id,
+            </if>
+            <if test="capitali_item != null">
+                capitali_item,
+            </if>
+            <if test="capitali_count != null">
+                capitali_count,
+            </if>
+            <if test="capitali_date != null">
+                capitali_date,
+            </if>
+            <if test="login_name != null">
+                login_name
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="capitali_id != null">
+                #{capitali_id, jdbcType=NUMERIC},
+            </if>
+            <if test="capitali_item != null">
+                #{capitali_item, jdbcType=VARCHAR},
+            </if>
+            <if test="capitali_count != null">
+                #{capitali_count, jdbcType=NUMERIC},
+            </if>
+            <if test="capitali_date">
+                #{capitali_date, jdbcType=DATE},
+            </if>
+            <if test="login_name != null">
+                #{login_name, jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id更新记录-->
+    <update id="updateCapitalInById" parameterType="CapitalIn">
+        UPDATE capital_in
+        <set>
+            <if test="capitali_item != null">
+                capitali_item = #{capitali_item, jdbcType=VARCHAR},
+            </if>
+            <if test="capitali_count != null">
+                capitali_count = #{capitali_count, jdbcType=NUMERIC},
+            </if>
+            <if test="capitali_date">
+                capitali_date = #{capitali_date, jdbcType=DATE},
+            </if>
+        </set>
+        WHERE capitali_id = #{capitali_id, jdbcType=NUMERIC}
+    </update>
+
+    <!--根据id删除记录-->
+    <delete id="deleteCapitalInById" parameterType="CapitalIn">
+        DELETE FROM capital_in WHERE capitali_id = #{capitali_id}
+    </delete>
+</mapper>

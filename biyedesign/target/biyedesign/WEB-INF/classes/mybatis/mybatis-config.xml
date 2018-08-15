@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false" />
+    </settings>
+    <typeAliases>
+        <typeAlias alias="User" type="com.org.design.domain.user.User" />
+        <typeAlias alias="UserInfo" type="com.org.design.domain.user.UserInfo"/>
+        <typeAlias alias="DayRevenueItem" type="com.org.design.domain.day.DayRevenueItem"/>
+        <typeAlias alias="DayConsumeItem" type="com.org.design.domain.day.DayConsumeItem"/>
+        <typeAlias alias="DayGeneralizeConsume" type="com.org.design.domain.day.DayGeneralizeConsume"/>
+        <typeAlias alias="CapitalIn" type="com.org.design.domain.capital.CapitalIn"/>
+        <typeAlias alias="CapitalOut" type="com.org.design.domain.capital.CapitalOut"/>
+        <typeAlias alias="AllCapital" type="com.org.design.domain.capital.AllCapital"/>
+        <typeAlias alias="Produce" type="com.org.design.domain.produce.Produce"/>
+        <typeAlias alias="WorldBank" type="com.org.design.domain.worldBank.WorldBank"/>
+        <typeAlias alias="DayNote" type="com.org.design.domain.myNote.DayNote" />
+        <typeAlias alias="Head_image" type="com.org.design.domain.image.Head_image"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mysql/UserDao.xml"/>
+        <mapper resource="mysql/UserInfoDao.xml"/>
+        <mapper resource="mysql/ProduceDao.xml"/>
+        <mapper resource="mysql/DayGeneralizeConsumeDao.xml"/>
+        <mapper resource="mysql/DayNoteDao.xml"/>
+        <mapper resource="mysql/DayConsumeDao.xml"/>
+        <mapper resource="mysql/DayRevenueDao.xml"/>
+        <mapper resource="mysql/CapitalInDao.xml"/>
+        <mapper resource="mysql/CapitalOutDao.xml"/>
+        <mapper resource="mysql/WorldBankDao.xml"/>
+        <mapper resource="mysql/ImageDao.xml" />
+    </mappers>
+</configuration>

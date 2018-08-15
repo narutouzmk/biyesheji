@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="biyedesign:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="biyedesign.war">
+      <element id="artifact" artifact-name="biyedesign:war exploded" />
+    </root>
+  </artifact>
+</component>
